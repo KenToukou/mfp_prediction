@@ -11,8 +11,11 @@ shapely = "*"
 pyyaml = "*"
 sqlalchemy = "*"
 psycopg2 = "*"
+typing-extensions = "*"
+pandas = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.11"
