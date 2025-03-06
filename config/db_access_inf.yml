@@ -1,5 +1,2 @@
 mfp_db:
   db_url: "sqlite:///db/mfp_db.db"
-
-img_path_db:
-  db_url: "sqlite:///db/img_path_db.db"
