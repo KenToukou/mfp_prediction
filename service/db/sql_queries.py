@@ -114,3 +114,54 @@ GET_PORE_INF_ID = text(
             n.normalized_misalignment = :normalized_misalignment;
         """
 )
+GET_ALL_PORE_POSITION_INF = text(
+    """
+    SELECT
+      pf.id as pore_position_id,
+      shape.shape,
+      porosity.porosity,
+      n.normalized_misalignment
+    FROM
+        pore_position_info as pf
+    INNER JOIN
+        shape ON shape.id = pf.shape_id
+    INNER JOIN
+        porosity ON porosity.id = pf.porosity_id
+    INNER JOIN
+        normalized_misalignment AS n ON n.id = pf.normalize_misalignment_id
+    """
+)
+
+
+GET_IMG_INF = text(
+    """
+    SELECT
+      shape.shape,
+      porosity.porosity,
+      n.normalized_misalignment,
+      img.pixel_x_num,
+      img.pixel_y_num,
+      img.x_scale_length,
+      img.y_scale_length,
+      img.img_path
+    FROM
+        pore_position_info as pf
+    INNER JOIN
+        shape ON shape.id = pf.shape_id
+    INNER JOIN
+        porosity ON porosity.id = pf.porosity_id
+    INNER JOIN
+        normalized_misalignment AS n ON n.id = pf.normalize_misalignment_id
+    INNER JOIN
+        img ON img.pore_position_id = pf.id
+    WHERE
+        shape.shape = :shape AND
+        porosity.porosity = :porosity AND
+        n.normalized_misalignment = :normalized_misalignment AND
+        img.pixel_x_num = :pixel_x_num AND
+        img.pixel_y_num = :pixel_y_num AND
+        img.x_scale_length = :x_scale_length AND
+        img.pixel_x_num = :pixel_x_num AND
+        img.y_scale_length = :y_scale_length;
+    """
+)
