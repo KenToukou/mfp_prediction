@@ -32,7 +32,7 @@ class Object3DGenerator:
 class Object3DProcessor:
     @classmethod
     def subtract_mesh_from_cube(
-        base_mesh: Trimesh, subtraction_mesh: Trimesh
+        cls, base_mesh: Trimesh, subtraction_mesh: Trimesh
     ) -> Trimesh:
         processed_mesh = base_mesh.difference(subtraction_mesh)
         return processed_mesh

@@ -14,10 +14,12 @@ class Img(Base):
         nullable=False,
     )
 
-    pixel_x_num = Column(Float, nullable=False)
-    pixel_y_num = Column(Float, nullable=False)
-    x_scale_length = Column(Float, nullable=False)
-    y_scale_length = Column(Float, nullable=False)
+    pixel_x_num = Column(
+        Float, nullable=False
+    )  # ピクセル(画像の解像度の情報 xとyは等しくなる)
+    pixel_y_num = Column(Float, nullable=False)  # ピクセル(画像の解像度の情報)
+    x_scale_length = Column(Float, nullable=False)  # 熱電変換素子のスケール長さ
+    y_scale_length = Column(Float, nullable=False)  # 熱電変換素子のスケール長さ
     img_path = Column(String, nullable=False)
 
     # Relationship back to PorePositionInfo

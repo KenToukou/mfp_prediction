@@ -5,6 +5,8 @@ from logic.db_logic.db_connect import get_db_session
 
 from .sql_queries import (
     GET_ALL_MFP_DATA,
+    GET_ALL_PORE_POSITION_INF,
+    GET_IMG_INF,
     GET_MFP_DATA,
     GET_PORE_INF_ID,
     UPDATE_MFP_DATA,
@@ -114,3 +116,81 @@ class DBService:
             response = result.fetchall()
 
         return float(response[0][0])
+
+    def post_data_to_img_db(self, df: pd.DataFrame):
+        with get_db_session(self.db_url) as session:
+            engine = session.bind
+            df.to_sql("img", con=engine, if_exists="append", index=False)
+        return True
+
+    def is_img_in_db(
+        self,
+        shape,
+        porosity,
+        normalized_misalignment,
+        pixel_x_num,
+        pixel_y_num,
+        x_scale_length,
+        y_scale_length,
+    ):
+        query = GET_IMG_INF
+        with get_db_session(self.db_url) as cursor:
+            # パラメータを辞書形式で渡す
+            result = cursor.execute(
+                query,
+                {
+                    "shape": shape,
+                    "porosity": porosity,
+                    "normalized_misalignment": normalized_misalignment,
+                    "pixel_x_num": pixel_x_num,
+                    "pixel_y_num": pixel_y_num,
+                    "x_scale_length": x_scale_length,
+                    "y_scale_length": y_scale_length,
+                },
+            )
+            response = result.fetchall()
+            columns = result.keys()
+            df = pd.DataFrame(response, columns=columns)
+        return df.shape[0] != 0
+
+    def get_all_pore_position_inf(self):
+        query = GET_ALL_PORE_POSITION_INF
+        with get_db_session(self.db_url) as cursor:
+            # パラメータを辞書形式で渡す
+            result = cursor.execute(
+                query,
+            )
+            response = result.fetchall()
+            columns = result.keys()
+            df = pd.DataFrame(response, columns=columns)
+        return df
+
+    def get_img_data_from_db(
+        self,
+        shape,
+        porosity,
+        normalized_misalignment,
+        pixel_x_num,
+        pixel_y_num,
+        x_scale_length,
+        y_scale_length,
+    ):
+        query = GET_IMG_INF
+        with get_db_session(self.db_url) as cursor:
+            # パラメータを辞書形式で渡す
+            result = cursor.execute(
+                query,
+                {
+                    "shape": shape,
+                    "porosity": porosity,
+                    "normalized_misalignment": normalized_misalignment,
+                    "pixel_x_num": pixel_x_num,
+                    "pixel_y_num": pixel_y_num,
+                    "x_scale_length": x_scale_length,
+                    "y_scale_length": y_scale_length,
+                },
+            )
+            response = result.fetchall()
+            columns = result.keys()
+            df = pd.DataFrame(response, columns=columns)
+        return df.shape[0] != 0

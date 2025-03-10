@@ -24,6 +24,7 @@ class ImgCreator:
         slice_section = mesh_object.section(
             plane_origin=slice_plane_origin, plane_normal=slice_plane_normal
         )
+        plt.figure(figsize=(8, 8))
 
         if slice_section is not None:
             # 断面を2D平面に投影
@@ -59,7 +60,6 @@ class ImgCreator:
 
             plt.axis("off")
             plt.gca().set_aspect("equal")
-            plt.savefig(f"{title}.png", bbox_inches="tight", pad_inches=0, dpi=300)
-            plt.show()
+            return plt
         else:
             print("Failed to obtain cross-section.")
