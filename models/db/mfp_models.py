@@ -17,7 +17,7 @@ class Shape(Base):
     __tablename__ = "shape"
 
     id = Column(Integer, primary_key=True, autoincrement=True, unique=True)
-    shape = Column(String, nullable=False)
+    shape = Column(String, nullable=False, unique=True)
     pore_positions = relationship("PorePositionInfo", back_populates="shape")
 
 
@@ -49,7 +49,7 @@ class PorePositionInfo(Base):
     )
 
     mfp = relationship("MFP", back_populates="pore_position_info")
-    img = relationship("Img", back_populates="img")
+    img = relationship("Img", back_populates="pore_position_info")
 
 
 class MFP(Base):

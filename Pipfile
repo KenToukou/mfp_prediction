@@ -13,6 +13,7 @@ sqlalchemy = "*"
 psycopg2 = "*"
 typing-extensions = "*"
 pandas = "*"
+pydantic = "*"
 
 [dev-packages]
 ipykernel = "*"
