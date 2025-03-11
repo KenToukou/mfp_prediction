@@ -172,3 +172,6 @@ cython_debug/
 
 
 /data
+/fig/data
+/notebooks/machine_learning/data
+/fig/result
